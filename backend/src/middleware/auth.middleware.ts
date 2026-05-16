@@ -5,6 +5,7 @@ import { AuthRequest } from "../interfaces/express.interface";
 
 interface JwtPayload {
   id: string;
+  role: string;
 }
 
 export const protect = (
@@ -33,6 +34,7 @@ export const protect = (
 
     req.user = {
       id: decoded.id,
+      role: decoded.role,
     };
 
     next();
