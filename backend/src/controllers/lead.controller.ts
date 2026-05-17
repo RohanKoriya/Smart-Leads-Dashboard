@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 
 import Lead from "../models/Lead.model";
+import { asyncHandler } from "../utils/asyncHandler";
+import { ApiError } from "../utils/ApiError";
 
 export const createLead = async (
   req: Request,
@@ -124,33 +126,20 @@ export const getLeads = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const getLeadById = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  try {
+export const getLeadById = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const lead = await Lead.findById(req.params.id);
 
     if (!lead) {
-      res.status(404).json({
-        success: false,
-        message: "Lead not found",
-      });
-
-      return;
+      throw new ApiError(404, "Lead not found");
     }
 
     res.status(200).json({
       success: true,
       data: lead,
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch lead",
-    });
-  }
-};
+  },
+);
 
 export const updateLead = async (
   req: Request,
@@ -183,30 +172,17 @@ export const updateLead = async (
   }
 };
 
-export const deleteLead = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  try {
+export const deleteLead = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const lead = await Lead.findByIdAndDelete(req.params.id);
 
     if (!lead) {
-      res.status(404).json({
-        success: false,
-        message: "Lead not found",
-      });
-
-      return;
+      throw new ApiError(404, "Lead not found");
     }
 
     res.status(200).json({
       success: true,
       message: "Lead deleted successfully",
     });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to delete lead",
-    });
-  }
-};
+  },
+);

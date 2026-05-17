@@ -11,10 +11,17 @@ import {
 import { protect } from "../middleware/auth.middleware";
 
 import { authorizeRoles } from "../middleware/role.middleware";
+import { validateLead } from "../middleware/validate.middleware";
 
 const router = express.Router();
 
-router.post("/", protect, authorizeRoles("admin", "sales"), createLead);
+router.post(
+  "/",
+  protect,
+  authorizeRoles("admin", "sales"),
+  validateLead,
+  createLead,
+);
 
 router.get("/", protect, authorizeRoles("admin", "sales"), getLeads);
 
