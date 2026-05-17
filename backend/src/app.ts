@@ -5,6 +5,7 @@ import morgan from "morgan";
 import authRoutes from "./routes/auth.routes";
 import testRoutes from "./routes/test.routes";
 import roleTestRoutes from "./routes/roleTest.routes";
+import leadRoutes from "./routes/lead.routes";
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.get("/", (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/role-test", roleTestRoutes);
+app.use("/api/leads", leadRoutes);
 
 export default app;
