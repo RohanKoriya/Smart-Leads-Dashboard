@@ -19,6 +19,10 @@ const Leads = () => {
 
   const [sort, setSort] = useState("latest");
 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [totalPages, setTotalPages] = useState(1);
+
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
   /*
@@ -29,10 +33,11 @@ const Leads = () => {
       setLoading(true);
 
       const response = await api.get<LeadsResponse>(
-        `/leads?search=${debouncedSearch}&status=${status}&source=${source}&sort=${sort}`,
+        `/leads?search=${debouncedSearch}&status=${status}&source=${source}&sort=${sort}&page=${currentPage}`,
       );
 
       setLeads(response.data.data);
+      setTotalPages(response.data.pagination.totalPages);
     } catch (error) {
       setError("Failed to fetch leads");
     } finally {
@@ -52,6 +57,10 @@ const Leads = () => {
 
   useEffect(() => {
     fetchLeads();
+  }, [debouncedSearch, status, source, sort, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
   }, [debouncedSearch, status, source, sort]);
 
   /*
@@ -170,6 +179,49 @@ const Leads = () => {
             ))}
           </tbody>
         </table>
+
+        <div className="flex items-center justify-between p-4 border-t">
+          {/* PREVIOUS BUTTON */}
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 border rounded-lg disabled:opacity-50"
+          >
+            Previous
+          </button>
+
+          {/* PAGE INFO */}
+          <div className="flex items-center gap-2">
+            {Array.from({
+              length: totalPages,
+            }).map((_, index) => {
+              const page = index + 1;
+
+              return (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-4 py-2 rounded-lg border ${
+                    currentPage === page ? "bg-black text-white" : "bg-white"
+                  }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* NEXT BUTTON */}
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 border rounded-lg disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
