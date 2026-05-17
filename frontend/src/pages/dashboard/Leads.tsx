@@ -13,6 +13,12 @@ const Leads = () => {
 
   const [search, setSearch] = useState("");
 
+  const [status, setStatus] = useState("");
+
+  const [source, setSource] = useState("");
+
+  const [sort, setSort] = useState("latest");
+
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
   /*
@@ -23,7 +29,7 @@ const Leads = () => {
       setLoading(true);
 
       const response = await api.get<LeadsResponse>(
-        `/leads?search=${debouncedSearch}`,
+        `/leads?search=${debouncedSearch}&status=${status}&source=${source}&sort=${sort}`,
       );
 
       setLeads(response.data.data);
@@ -46,7 +52,7 @@ const Leads = () => {
 
   useEffect(() => {
     fetchLeads();
-  }, [debouncedSearch]);
+  }, [debouncedSearch, status, source, sort]);
 
   /*
     LOADING STATE
@@ -71,16 +77,63 @@ const Leads = () => {
 
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
-      <div className="p-6 border-b flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <h2 className="text-2xl font-bold">Leads</h2>
+      <div className="p-6 border-b flex flex-col gap-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <h2 className="text-2xl font-bold">Leads</h2>
 
-        <input
-          type="text"
-          placeholder="Search name or email..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border rounded-lg px-4 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-black"
-        />
+          <input
+            type="text"
+            placeholder="Search name or email..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="border rounded-lg px-4 py-2 w-full md:w-80 focus:outline-none focus:ring-2 focus:ring-black"
+          />
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* STATUS FILTER */}
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          >
+            <option value="">All Status</option>
+
+            <option value="New">New</option>
+
+            <option value="Contacted">Contacted</option>
+
+            <option value="Qualified">Qualified</option>
+
+            <option value="Lost">Lost</option>
+          </select>
+
+          {/* SOURCE FILTER */}
+          <select
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          >
+            <option value="">All Sources</option>
+
+            <option value="Website">Website</option>
+
+            <option value="Instagram">Instagram</option>
+
+            <option value="Referral">Referral</option>
+          </select>
+
+          {/* SORT FILTER */}
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="border rounded-lg px-4 py-2"
+          >
+            <option value="latest">Latest</option>
+
+            <option value="oldest">Oldest</option>
+          </select>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
