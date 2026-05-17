@@ -1,9 +1,24 @@
-function App() {
-  return (
-    <>
-      <h1 className="text-3xl font bold text-red-800">Hello</h1>
-    </>
-  );
-}
+import { Routes, Route } from "react-router-dom";
+import Register from "./pages/auth/Register";
+import Login from "./pages/auth/Login";
+import Dashboard from "./pages/dashboard/Dashboard";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
-export default App;
+const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+};
+
+export default AppRoutes;

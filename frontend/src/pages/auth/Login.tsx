@@ -1,0 +1,103 @@
+import { useState, type FormEvent } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+import api from "../../api/axios";
+
+import { useAuth } from "../../context/AuthContext";
+
+import type { LoginResponse } from "../../types/api.types";
+
+const Login = () => {
+  const navigate = useNavigate();
+
+  const { login } = useAuth();
+
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const response = await api.post<LoginResponse>("/auth/login", {
+        email,
+        password,
+      });
+
+      const { token, user } = response.data;
+
+      /*
+        SAVE AUTH STATE
+      */
+      login(token, user);
+
+      /*
+        REDIRECT
+      */
+      navigate("/dashboard");
+    } catch (error) {
+      setError("Invalid email or password");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Smart Leads Login
+        </h1>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1 text-sm font-medium">Email</label>
+
+            <input
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-sm font-medium">Password</label>
+
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
+
+          {error && <div className="text-red-500 text-sm">{error}</div>}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-black text-white py-3 rounded-lg hover:opacity-90 transition"
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

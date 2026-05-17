@@ -36,7 +36,11 @@ export const registerUser = async (
     res.status(201).json({
       success: true,
       token,
-      user,
+
+      user: {
+        id: user._id,
+        role: user.role,
+      },
     });
   } catch (error) {
     res.status(500).json({
@@ -77,7 +81,11 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     res.status(200).json({
       success: true,
       token,
-      user,
+
+      user: {
+        id: user._id,
+        role: user.role,
+      },
     });
   } catch (error) {
     res.status(500).json({
