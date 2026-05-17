@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { CSVLink } from "react-csv";
 
 import api from "../../api/axios";
 
@@ -154,6 +155,14 @@ const Leads = () => {
 
   const newLeads = leads.filter((lead) => lead.status === "New").length;
 
+  const csvData = leads.map((lead) => ({
+    Name: lead.name,
+    Email: lead.email,
+    Status: lead.status,
+    Source: lead.source,
+    CreatedAt: new Date(lead.createdAt).toLocaleDateString(),
+  }));
+
   return (
     <div className="space-y-6">
       {/* STATS CARDS */}
@@ -188,15 +197,25 @@ const Leads = () => {
       <div className="bg-white rounded-2xl shadow overflow-hidden">
         <div className="p-6 border-b flex flex-col gap-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-wrap">
               <h2 className="text-2xl font-bold">Leads</h2>
 
+              {/* ADD LEAD */}
               <button
                 onClick={() => setShowModal(true)}
                 className="bg-black text-white px-4 py-2 rounded-lg"
               >
                 + Add Lead
               </button>
+
+              {/* EXPORT CSV */}
+              <CSVLink
+                data={csvData}
+                filename="leads.csv"
+                className="border px-4 py-2 rounded-lg hover:bg-gray-100"
+              >
+                Export CSV
+              </CSVLink>
             </div>
 
             <input
