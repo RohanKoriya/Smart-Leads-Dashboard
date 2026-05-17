@@ -108,7 +108,7 @@ JWT_SECRET=your_jwt_secret
 ## 1. Clone Repository
 
 ```bash
-git clone https://github.com/RohanKoriya/Smart-Leads-Dashboard.git
+git clone https://github.com/RohanKoriya/Smart-Leads-Dashboard.git3e
 ```
 
 ---
