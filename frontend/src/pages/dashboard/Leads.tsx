@@ -4,6 +4,8 @@ import api from "../../api/axios";
 
 import type { Lead, LeadsResponse } from "../../types/lead.types";
 
+import CreateLeadModal from "../../components/CreateLeadModal";
+
 const Leads = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
 
@@ -22,6 +24,8 @@ const Leads = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [totalPages, setTotalPages] = useState(1);
+
+  const [showModal, setShowModal] = useState(false);
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
 
@@ -88,7 +92,16 @@ const Leads = () => {
     <div className="bg-white rounded-2xl shadow overflow-hidden">
       <div className="p-6 border-b flex flex-col gap-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <h2 className="text-2xl font-bold">Leads</h2>
+          <div className="flex items-center gap-4">
+            <h2 className="text-2xl font-bold">Leads</h2>
+
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-black text-white px-4 py-2 rounded-lg"
+            >
+              + Add Lead
+            </button>
+          </div>
 
           <input
             type="text"
@@ -223,6 +236,12 @@ const Leads = () => {
           </button>
         </div>
       </div>
+      {showModal && (
+        <CreateLeadModal
+          onClose={() => setShowModal(false)}
+          onLeadCreated={fetchLeads}
+        />
+      )}
     </div>
   );
 };
