@@ -1,6 +1,6 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import api from "../../api/axios";
 
@@ -21,7 +21,7 @@ const Login = () => {
 
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: FormEvent): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -95,6 +95,12 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+        <p className="text-center text-sm mt-4">
+          Don’t have an account?{" "}
+          <Link to="/register" className="font-semibold underline">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );

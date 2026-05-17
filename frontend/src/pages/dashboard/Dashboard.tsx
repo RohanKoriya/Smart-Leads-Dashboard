@@ -24,7 +24,7 @@ const Dashboard = () => {
 
       <main className="p-6">
         <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="text-xl font-semibold mb-2">Welcome</h2>
+          <h2 className="text-xl font-semibold mb-2">Welcome, {user?.name}</h2>
 
           <p className="text-gray-600">You are logged in as: {user?.role}</p>
         </div>
