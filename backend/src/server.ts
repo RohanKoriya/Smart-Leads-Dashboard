@@ -19,7 +19,7 @@ const startServer = async (): Promise<void> => {
     const frontendPath = path.resolve(__dirname, "../../frontend/dist");
     app.use(express.static(frontendPath));
 
-    app.get("/*", (_, res) => {
+    app.get(/.*/, (_, res) => {
       res.sendFile(path.join(frontendPath, "index.html"));
     });
   }
