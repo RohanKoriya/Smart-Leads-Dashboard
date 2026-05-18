@@ -8,8 +8,27 @@ export const registerUser = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
+  const { name, email, password, role } = req.body;
+
   try {
-    const { name, email, password, role } = req.body;
+    if (!name || !email || !password) {
+      res.status(400).json({ message: "All fields are required" });
+      return;
+    }
+
+    if (password.length < 6) {
+      res
+        .status(400)
+        .json({ message: "Password must be at least 6 characters" });
+      return;
+    }
+
+    //check if emails valid: regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      res.status(400).json({ message: "Invalid email format" });
+      return;
+    }
 
     const existingUser = await User.findOne({ email });
 
@@ -18,7 +37,6 @@ export const registerUser = async (
         success: false,
         message: "User already exists",
       });
-
       return;
     }
 
@@ -36,24 +54,35 @@ export const registerUser = async (
     res.status(201).json({
       success: true,
       token,
-
       user: {
         id: user._id,
+        name: user.name,
+        email: user.email,
         role: user.role,
       },
     });
+    return;
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Server Error",
     });
+    return;
   }
 };
 
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
+  if (!email || !password) {
+    res.status(400).json({
+      message: "Email and password are required",
+    });
+
+    return;
+  }
+
+  try {
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -84,6 +113,8 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 
       user: {
         id: user._id,
+        name: user.name,
+        email: user.email,
         role: user.role,
       },
     });
