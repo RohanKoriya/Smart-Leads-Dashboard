@@ -16,8 +16,6 @@ const startServer = async (): Promise<void> => {
     PRODUCTION SETUP
   */
   if (process.env.NODE_ENV === "production") {
-    // Use process.cwd() to get the project root directory
-
     const frontendPath = path.resolve(__dirname, "../../frontend/dist");
     app.use(express.static(frontendPath));
 
