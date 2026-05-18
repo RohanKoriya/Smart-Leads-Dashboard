@@ -2,12 +2,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
-import path from "path";
 
+import path from "path";
 import app from "./app";
 import { connectDB } from "./config/db";
-
-const __dirname = path.resolve();
 
 const PORT = process.env.PORT || 5000;
 
@@ -18,7 +16,8 @@ const startServer = async (): Promise<void> => {
     PRODUCTION SETUP
   */
   if (process.env.NODE_ENV === "production") {
-    const frontendPath = path.join(__dirname, "frontend", "dist");
+    // Use process.cwd() to get the project root directory
+    const frontendPath = path.join(process.cwd(), "frontend", "dist");
 
     app.use(express.static(frontendPath));
 
