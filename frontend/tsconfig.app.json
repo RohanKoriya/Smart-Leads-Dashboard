@@ -5,10 +5,9 @@
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
 
-    "types": ["vite/client", "react", "react-dom"],
+    "types": ["vite/client"],
 
     "skipLibCheck": true,
-
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
