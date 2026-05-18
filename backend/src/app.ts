@@ -23,7 +23,7 @@ app.use(
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.get("/", (_req, res) => {
+app.get("/api", (_req, res) => {
   res.json({
     success: true,
     message: "API Running",
