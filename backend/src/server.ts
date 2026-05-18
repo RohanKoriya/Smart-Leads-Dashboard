@@ -17,11 +17,11 @@ const startServer = async (): Promise<void> => {
   */
   if (process.env.NODE_ENV === "production") {
     // Use process.cwd() to get the project root directory
-    const frontendPath = path.join(process.cwd(), "frontend", "dist");
 
+    const frontendPath = path.resolve(__dirname, "../../frontend/dist");
     app.use(express.static(frontendPath));
 
-    app.get(/(.*)/, (_, res) => {
+    app.get("*", (_, res) => {
       res.sendFile(path.join(frontendPath, "index.html"));
     });
   }
