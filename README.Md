@@ -177,78 +177,11 @@ npm run dev
 
 # API Endpoints
 
-## Authentication
+## API Documentation
 
-### Register
+See:
 
-```http
-POST /api/auth/register
-```
-
-### Login
-
-```http
-POST /api/auth/login
-```
-
----
-
-# Leads
-
-## Get All Leads
-
-```http
-GET /api/leads
-```
-
-Supports:
-
-- search
-- filtering
-- sorting
-- pagination
-
-Example:
-
-```http
-/api/leads?search=rahul&status=Qualified&source=Instagram&page=1
-```
-
----
-
-## Create Lead
-
-```http
-POST /api/leads
-```
-
----
-
-## Update Lead
-
-```http
-PUT /api/leads/:id
-```
-
----
-
-## Delete Lead
-
-```http
-DELETE /api/leads/:id
-```
-
-Admin only.
-
----
-
-# Authentication Header
-
-```http
-Authorization: Bearer YOUR_TOKEN
-```
-
----
+- API_DOCUMENTATION.md
 
 # Roles
 

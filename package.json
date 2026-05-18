@@ -1,0 +1,21 @@
+{
+  "name": "smart-leads-dashboard",
+  "version": "1.0.0",
+  "description": "A production-style Full Stack MERN CRM dashboard built with:",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend && npm run build --prefix backend",
+    "start": "npm run start --prefix backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RohanKoriya/Smart-Leads-Dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RohanKoriya/Smart-Leads-Dashboard/issues"
+  },
+  "homepage": "https://github.com/RohanKoriya/Smart-Leads-Dashboard#readme"
+}
