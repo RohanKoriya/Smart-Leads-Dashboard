@@ -82,7 +82,7 @@ const Register = () => {
             </svg>
           </div>
           <h1 className="text-xl font-semibold text-zinc-900 tracking-tight">
-            Smart Leads
+            LeadFlow
           </h1>
           <p className="text-sm text-zinc-500 mt-1">
             Create your account to get started

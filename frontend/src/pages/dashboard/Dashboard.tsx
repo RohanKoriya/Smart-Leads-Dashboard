@@ -33,7 +33,7 @@ const Dashboard = () => {
               </svg>
             </div>
             <span className="text-sm font-semibold text-zinc-900 tracking-tight">
-              Smart Leads
+              LeadFlow
             </span>
             <div className="hidden sm:block w-px h-4 bg-zinc-200 mx-1" />
             <span className="hidden sm:block text-sm text-zinc-500">

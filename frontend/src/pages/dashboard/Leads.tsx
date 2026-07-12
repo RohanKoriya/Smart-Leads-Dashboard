@@ -226,6 +226,48 @@ const Leads = () => {
 
   return (
     <div className="space-y-6">
+      {/* ── HERO SECTION ── */}
+      <div className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold border border-indigo-100 mb-4">
+              <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+              Lead Management Platform
+            </div>
+
+            <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
+              Welcome to <span className="text-indigo-600">LeadFlow</span>
+            </h1>
+
+            <p className="mt-3 max-w-2xl text-zinc-600 leading-relaxed">
+              LeadFlow is a modern CRM platform that helps sales teams organize,
+              track, and manage customer leads from multiple sources. Monitor
+              your sales pipeline, collaborate efficiently, and convert
+              prospects faster with an intuitive dashboard.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 min-w-[240px]">
+            <div className="rounded-xl bg-zinc-50 border border-zinc-200 p-4">
+              <p className="text-xs uppercase tracking-wide text-zinc-500">
+                Sources
+              </p>
+              <p className="mt-2 text-lg font-semibold text-zinc-900">
+                Website • Instagram • Referral
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-zinc-50 border border-zinc-200 p-4">
+              <p className="text-xs uppercase tracking-wide text-zinc-500">
+                Features
+              </p>
+              <p className="mt-2 text-lg font-semibold text-zinc-900">
+                CRM • Analytics • Export
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* ── STAT CARDS ── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((card) => (
