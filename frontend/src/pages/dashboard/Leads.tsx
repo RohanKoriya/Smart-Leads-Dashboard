@@ -8,9 +8,9 @@ import EditLeadModal from "../../components/EditLeadModal";
 
 const getGreeting = () => {
   const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 17) return "Good afternoon";
-  return "Good evening";
+  if (h < 12) return "morning";
+  if (h < 17) return "afternoon";
+  return "evening";
 };
 
 const statusStyles: Record<string, string> = {
