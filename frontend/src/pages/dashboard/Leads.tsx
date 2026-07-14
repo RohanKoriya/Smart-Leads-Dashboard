@@ -6,6 +6,13 @@ import type { Lead, LeadsResponse } from "../../types/lead.types";
 import CreateLeadModal from "../../components/CreateLeadModal";
 import EditLeadModal from "../../components/EditLeadModal";
 
+const getGreeting = () => {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning";
+  if (h < 17) return "Good afternoon";
+  return "Good evening";
+};
+
 const statusStyles: Record<string, string> = {
   New: "bg-sky-50 text-sky-700 border border-sky-200",
   Contacted: "bg-amber-50 text-amber-700 border border-amber-200",
@@ -227,44 +234,56 @@ const Leads = () => {
   return (
     <div className="space-y-6">
       {/* ── HERO SECTION ── */}
-      <div className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold border border-indigo-100 mb-4">
-              <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-              Lead Management Platform
+      <div className="bg-white border border-zinc-200 rounded-xl px-6 py-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          {/* Left: greeting + subtitle */}
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center shrink-0">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M3 10L10 3L17 10L10 17L3 10Z"
+                  fill="white"
+                  fillOpacity="0.9"
+                />
+                <circle cx="10" cy="10" r="2.5" fill="white" />
+              </svg>
             </div>
-
-            <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
-              Welcome to <span className="text-indigo-600">LeadFlow</span>
-            </h1>
-
-            <p className="mt-3 max-w-2xl text-zinc-600 leading-relaxed">
-              LeadFlow is a modern CRM platform that helps sales teams organize,
-              track, and manage customer leads from multiple sources. Monitor
-              your sales pipeline, collaborate efficiently, and convert
-              prospects faster with an intuitive dashboard.
-            </p>
+            <div>
+              <h1 className="text-base font-semibold text-zinc-900 leading-snug">
+                Good {getGreeting()},{" "}
+                <span className="text-zinc-700">
+                  {user?.name?.split(" ")[0]}
+                </span>{" "}
+                👋
+              </h1>
+              <p className="text-sm text-zinc-500 mt-0.5">
+                Here's what's happening with your leads today.
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 min-w-[240px]">
-            <div className="rounded-xl bg-zinc-50 border border-zinc-200 p-4">
-              <p className="text-xs uppercase tracking-wide text-zinc-500">
-                Sources
-              </p>
-              <p className="mt-2 text-lg font-semibold text-zinc-900">
-                Website • Instagram • Referral
-              </p>
-            </div>
-
-            <div className="rounded-xl bg-zinc-50 border border-zinc-200 p-4">
-              <p className="text-xs uppercase tracking-wide text-zinc-500">
-                Features
-              </p>
-              <p className="mt-2 text-lg font-semibold text-zinc-900">
-                CRM • Analytics • Export
-              </p>
-            </div>
+          {/* Right: quick meta pills */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-600 border border-zinc-200 bg-zinc-50 px-3 py-1.5 rounded-lg">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              Website · Instagram · Referral
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 border border-emerald-200 bg-emerald-50 px-3 py-1.5 rounded-lg">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Live dashboard
+            </span>
           </div>
         </div>
       </div>
