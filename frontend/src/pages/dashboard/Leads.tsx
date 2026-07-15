@@ -601,7 +601,7 @@ const Leads = () => {
                       })}
                     </td>
                     <td className="px-5 py-3.5">
-                      <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={() => setSelectedLead(lead)}
                           className="text-xs font-medium text-zinc-600 border border-zinc-200 px-3 py-1.5 rounded-lg hover:bg-zinc-100 hover:text-zinc-900 transition-colors"
